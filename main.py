@@ -54,7 +54,11 @@ class Game:
         print(self.player.current_room.get_long_description()) 
 
 def main():
-    Game().play()
+    print("Without graphical interface - 0")
+    print("With graphical interface - 1\n")
+    version = int(input("Which version of the game would you like to play?\n\n"))
+    if version == 0 :
+        Game().play()
     
 if __name__ == "__main__":
     main()

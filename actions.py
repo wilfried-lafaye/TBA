@@ -6,8 +6,8 @@ class Actions:
 
     def go(game, list_of_words, number_of_parameters):
         """
-        Move the player in the direction specified by the parameter.
-        The parameter must be a name of a room.
+        Move the player in the room specified by the parameter.
+        The parameter must be the name of a room.
 
         Args:
             game (Game): The game object.
@@ -19,15 +19,6 @@ class Actions:
 
         Examples:
         
-        >>> from game import Game
-        >>> game = Game()
-        >>> game.setup()
-        >>> go(game, ["go", "N"], 1)
-        True
-        >>> go(game, ["go", "N", "E"], 1)
-        False
-        >>> go(game, ["go"], 1)
-        False
         """
         player = game.player
         l = len(list_of_words)
@@ -37,10 +28,10 @@ class Actions:
             print(MSG1.format(command_word=command_word))
             return False
 
-        # Get the direction from the list of words.
-        direction = list_of_words[1]
-        # Move the player in the direction specified by the parameter.
-        player.move(direction)
+        # Get the room from the list of words.
+        room = list_of_words[1]
+        # Move the player in the room specified by the parameter.
+        player.move(room)
         return True
 
     def quit(game, list_of_words, number_of_parameters):
@@ -56,16 +47,6 @@ class Actions:
             bool: True if the command was executed successfully, False otherwise.
 
         Examples:
-
-        >>> from game import Game
-        >>> game = Game()
-        >>> game.setup()
-        >>> quit(game, ["quit"], 0)
-        True
-        >>> quit(game, ["quit", "N"], 0)
-        False
-        >>> quit(game, ["quit", "N", "E"], 0)
-        False
 
         """
         l = len(list_of_words)
@@ -92,7 +73,7 @@ class Actions:
             number_of_parameters (int): The number of parameters expected by the command.
 
         Returns:
-            bool: True if the command was executed successfully, False otherwise.
+            
 
         Examples:
 
@@ -119,3 +100,48 @@ class Actions:
         for command in game.commands.values():
             print(str(command))
         return True
+    
+    def open(game, list_of_words, number_of_parameters):
+        """
+        This function  is essential for the gameplay.
+        It allows the player to open his inventory, a chest, a container, ect.
+
+        Args:
+            game (Game): The game object.
+            list_of_words (list): The list of words in the command.
+            number_of_parameters (int): The number of parameters expected by the command.
+
+        Returns:
+            
+        Examples:
+        """
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG1.format(command_word=command_word))
+            return False
+        
+        object = list_of_words[1]
+        if object == "Inventory" or object == "inventory" :
+            print(inventory)
+    def take(game, list_of_words, number_of_parameters):
+        """
+        This function  is essential for the gameplay.
+        It allows the player to take something in his inventory, something in the room, ect.
+
+        Args:
+            game (Game): The game object.
+            list_of_words (list): The list of words in the command.
+            number_of_parameters (int): The number of parameters expected by the command.
+
+        Returns:
+            
+        Examples:
+        """
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG1.format(command_word=command_word))
+            return False
+        
+        object = list_of_words[1]
+        if object ==
+
