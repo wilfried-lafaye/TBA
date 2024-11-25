@@ -30,6 +30,7 @@ class Actions:
 
         # Get the room from the list of words.
         room = list_of_words[1]
+
         # Move the player in the room specified by the parameter.
         player.move(room)
         return True
@@ -143,5 +144,5 @@ class Actions:
             return False
         
         object = list_of_words[1]
-        if object ==
+        #if object ==
 

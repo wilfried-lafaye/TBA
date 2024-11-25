@@ -14,12 +14,29 @@ class Game:
 
     def setup(self):
         # Setup commands
+
+        go = Command("go", "move into another room", Actions.go, 1)
+        self.commands["go"] = go
+
         # Setup rooms
 
-        room1 = Room("room1", "dark")
+        room1 = Room("room1", "room1")
         self.rooms.append(room1)
 
+        room2 = Room("room2", "room2")
+        self.rooms.append(room2)
+
+        room3 = Room("room3","room3")
+        self.rooms.append(room3)
+
+
         # Setup links between rooms
+
+        room1.exits = {"room2" :  room2}
+        room2.exits = {"room3" : room3}
+        room3.exits = {}
+
+
         # Setup starting room
         #self.player.current_room = 
         help = Command("help", " : afficher cette aide", Actions.help, 0)
