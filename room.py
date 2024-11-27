@@ -1,24 +1,40 @@
+# Define the Room class.
+
 class Room:
     """
-    This class defines the features of a room.
+    This class represents a room. A room is composed of a name, a description, and a dictionary which represents all of the connected rooms.
 
     Attributes:
         name (str): The name of the room.
         description (str): The description of the room.
-        exits (): 
+        exits (dict): All of the connected rooms.
 
     Methods:
-        __init__(self, name, description) : The constructor.
-        __get_exit__(self, direction) : .
-        __get_exit_string__(self): .
-        __get_long_description__(self):
+        __init__(self, command_word, help_string, action, number_of_parameters) : The constructor.
+        __str__(self) : The string representation of the command.
+
+    Examples:
+
+    >>> from actions import go
+    >>> command = Command("go", "Permet de se déplacer dans une direction.", go, 1)
+    >>> command.command_word
+    'go'
+    >>> command.help_string
+    'Permet de se déplacer dans une direction.'
+    >>> type(command.action)
+    <class 'function'>
+    >>> command.number_of_parameters
+    1
+
     """
+
+
+    # Define the constructor. 
     def __init__(self, name, description):
-        "Define the constructor"
         self.name = name
         self.description = description
         self.exits = {}
-
+    
     # Define the get_exit method.
     def get_exit(self, direction):
 
@@ -28,7 +44,7 @@ class Room:
         else:
             return None
     
-        # Return a string describing the room's exits.
+    # Return a string describing the room's exits.
     def get_exit_string(self):
         exit_string = "Sorties: " 
         for exit in self.exits.keys():
@@ -36,10 +52,7 @@ class Room:
                 exit_string += exit + ", "
         exit_string = exit_string.strip(", ")
         return exit_string
-    
+
     # Return a long description of this room including exits.
     def get_long_description(self):
-        return f"\nYou're actually in {self.description}"#\n\n{self.get_exit_string()}\n"
-
-    def get_name_room(self):
-        return {self.name}
+        return f"\nVous êtes {self.description}\n\n{self.get_exit_string()}\n"
