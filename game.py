@@ -30,32 +30,42 @@ class Game:
         
         # Setup rooms
 
-        forest = Room("Forest", "dans une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
-        self.rooms.append(forest)
-        tower = Room("Tower", "dans une immense tour en pierre qui s'élève au dessus des nuages.")
-        self.rooms.append(tower)
-        cave = Room("Cave", "dans une grotte profonde et sombre. Des voix semblent provenir des profondeurs.")
-        self.rooms.append(cave)
-        cottage = Room("Cottage", "dans un petit chalet pittoresque avec un toit de chaume. Une épaisse fumée verte sort de la cheminée.")
-        self.rooms.append(cottage)
-        swamp = Room("Swamp", "dans un marécage sombre et ténébreux. L'eau bouillonne, les abords sont vaseux.")
-        self.rooms.append(swamp)
-        castle = Room("Castle", "dans un énorme château fort avec des douves et un pont levis. Sur les tours, des flèches en or massif.")
-        self.rooms.append(castle)
+        HospitalRoom = Room("Bedroom", "")
+        self.rooms.append(HospitalRoom)
+        room1 = Room("room1", "")
+        self.rooms.append(room1)
+        room2 = Room("room2", "")
+        self.rooms.append(room2)
+        room3 = Room("room3", "")
+        self.rooms.append(room3)
+        Hall = Room("Hall", "")
+        self.rooms.append(Hall)
+        ElevatorUP = Room("ElevatorUP", "")
+        self.rooms.append(ElevatorUP)
+        ElevatorDOWN = Room("ElevatorDOWN", "")
+        self.rooms.append(ElevatorDOWN)
+        Hall2 = Room("Hall2", "")
+        self.rooms.append(Hall2)
+        Closet = Room("Closet", "")
+        self.rooms.append(Closet)
+    
 
         # Create exits for rooms
 
-        forest.exits = {"N" : cave, "E" : tower, "S" : castle, "O" : None}
-        tower.exits = {"N" : cottage, "E" : None, "S" : swamp, "O" : forest}
-        cave.exits = {"N" : None, "E" : cottage, "S" : forest, "O" : None}
-        cottage.exits = {"N" : None, "E" : None, "S" : tower, "O" : cave}
-        swamp.exits = {"N" : tower, "E" : None, "S" : None, "O" : castle}
-        castle.exits = {"N" : forest, "E" : swamp, "S" : None, "O" : None}
+        HospitalRoom.exits = {"N" : room1, "E" : Hall, "S" : None, "O" : None, "U" : None, "D" : None}
+        room1.exits = {"N" : None, "E" : room2, "S" : HospitalRoom, "O" : None, "U" : None, "D" : None}
+        room2.exits = {"N" : None, "E" : room3, "S" : None, "O" : room1, "U" : None, "D" : None}
+        room3.exits = {"N" : None, "E" : None, "S" : None, "O" : room2, "U" : None, "D" : None}
+        Hall.exits = {"N" : None, "E" : ElevatorUP, "S" : None, "O" : ElevatorUP, "U" : None, "D" : None}
+        ElevatorUP.exits = {"N" : None, "E" : None, "S" : None, "O" : Hall, "U" : None, "D" : ElevatorDOWN}
+        ElevatorDOWN.exits = {"N" : None, "E" : None, "S" : None, "O" : Hall2, "U" : ElevatorUP, "D" : None}
+        Hall2.exits = {"N" : None, "E" : ElevatorDOWN, "S" : Closet, "O" : None, "U" : None, "D" : None}
+        Closet.exits = {"N" : Hall2, "E" : None, "S" : None, "O" : None, "U" : None, "D" : None}
 
         # Setup player and starting room
 
-        self.player = Player(input("\nEntrez votre nom: "))
-        self.player.current_room = swamp
+        self.player = Player("Bob")
+        self.player.current_room = HospitalRoom
 
     # Play the game
     def play(self):
@@ -74,10 +84,12 @@ class Game:
         list_of_words = command_string.split(" ")
 
         command_word = list_of_words[0]
+        if command_word in "          ": 
+            return False
 
         # If the command is not recognized, print an error message
         if command_word not in self.commands.keys():
-            print(f"\nCommande '{command_word}' non reconnue. Entrez 'help' pour voir la liste des commandes disponibles.\n")
+            print(f"\nCommand '{command_word}' does not exits. Write 'help' to see all the commands\n")
         # If the command is recognized, execute it
         else:
             command = self.commands[command_word]

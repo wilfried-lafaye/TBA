@@ -7,7 +7,7 @@ class Room:
     Attributes:
         name (str): The name of the room.
         description (str): The description of the room.
-        exits (dict): All of the connected rooms.
+        exits (dict): All the connected rooms.
 
     Methods:
         __init__(self, command_word, help_string, action, number_of_parameters) : The constructor.
@@ -15,20 +15,14 @@ class Room:
 
     Examples:
 
-    >>> from actions import go
-    >>> command = Command("go", "Permet de se déplacer dans une direction.", go, 1)
-    >>> command.command_word
-    'go'
-    >>> command.help_string
-    'Permet de se déplacer dans une direction.'
-    >>> type(command.action)
-    <class 'function'>
-    >>> command.number_of_parameters
-    1
-
+    >>> from room import Room 
+    >>> forest = Room("Forest", "dans une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
+        self.rooms.append(forest)
+    >>> self.forest.name
+    'Forest'
+    >>> self.forest.get_long_description
+    'dans une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.'
     """
-
-
     # Define the constructor. 
     def __init__(self, name, description):
         self.name = name
@@ -55,4 +49,4 @@ class Room:
 
     # Return a long description of this room including exits.
     def get_long_description(self):
-        return f"\nVous êtes {self.description}\n\n{self.get_exit_string()}\n"
+        return f"\nVous êtes dans {self.description}\n\n{self.get_exit_string()}\n"
