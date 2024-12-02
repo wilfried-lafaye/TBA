@@ -30,23 +30,23 @@ class Game:
         
         # Setup rooms
 
-        HospitalRoom = Room("Bedroom", "")
+        HospitalRoom = Room("Bedroom", "the bedroom")
         self.rooms.append(HospitalRoom)
-        room1 = Room("room1", "")
+        room1 = Room("room1", "the room 1")
         self.rooms.append(room1)
-        room2 = Room("room2", "")
+        room2 = Room("room2", "the room 2")
         self.rooms.append(room2)
-        room3 = Room("room3", "")
+        room3 = Room("room3", "the room 3")
         self.rooms.append(room3)
-        Hall = Room("Hall", "")
+        Hall = Room("Hall", "the upper hall")
         self.rooms.append(Hall)
-        ElevatorUP = Room("ElevatorUP", "")
+        ElevatorUP = Room("ElevatorUP", "in the elevator")
         self.rooms.append(ElevatorUP)
-        ElevatorDOWN = Room("ElevatorDOWN", "")
+        ElevatorDOWN = Room("ElevatorDOWN", "in the elevator")
         self.rooms.append(ElevatorDOWN)
-        Hall2 = Room("Hall2", "")
+        Hall2 = Room("Hall2", "the dowstairs hall")
         self.rooms.append(Hall2)
-        Closet = Room("Closet", "")
+        Closet = Room("Closet", "the closet")
         self.rooms.append(Closet)
     
 

@@ -30,6 +30,7 @@ class Player():
         # Get the next room from the exits dictionary of the current room.
 
         if direction.lower() not in {"n", "nord", "north", "s", "sud", "south", "e", "est", "east", "o", "ouest", "west", "u", "up", "d", "down"}:
+            print("This direction doesn't exist.")
             return False
         elif direction.lower() in {"n", "nord", "north"}:
             if self.current_room.get_exits()["N"]  != None :
@@ -67,9 +68,7 @@ class Player():
             else :
                 print("Tou can't go in that direction.")
                 return False
-        else :
-            print("YThis direction doesn't exist.")
-            return False
+
 
         # If the next room is None, print an error message and return False.
         
