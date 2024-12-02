@@ -32,19 +32,43 @@ class Player():
         if direction.lower() not in {"n", "nord", "north", "s", "sud", "south", "e", "est", "east", "o", "ouest", "west", "u", "up", "d", "down"}:
             return False
         elif direction.lower() in {"n", "nord", "north"}:
-            next_room = self.current_room.exits["N"]
+            if self.current_room.get_exits()["N"]  != None :
+                next_room = self.current_room.exits["N"]
+            else :
+                print("TYou can't go in that direction.")
+                return False
         elif direction.lower() in {"s", "sud", "south"}:
-            next_room = self.current_room.exits["S"]
+            if self.current_room.get_exits()["S"]  != None :
+                next_room = self.current_room.exits["S"]
+            else :
+                print("You can't go in that direction.")
+                return False
         elif direction.lower() in {"e", "est", "east"}:
-            next_room = self.current_room.exits["E"]
+            if self.current_room.get_exits()["E"]  != None :
+                next_room = self.current_room.exits["E"]
+            else :
+                print("You can't go in that direction.")
+                return False
         elif direction.lower() in {"o", "ouest", "west"}:
-            next_room = self.current_room.exits["O"]
+            if self.current_room.get_exits()["O"]  != None :
+                next_room = self.current_room.exits["O"]
+            else :
+                print("You can't go in that direction.")
+                return False
         elif direction.lower() in {"u", "up"}:
-            next_room = self.current_room.exits["U"]
+            if self.current_room.get_exits()["U"]  != None :
+                next_room = self.current_room.exits["U"]
+            else :
+                print("You can't go in that direction.")
+                return False
         elif direction.lower() in {"d", "down"}:
-            next_room = self.current_room.exits["D"]
+            if self.current_room.get_exits()["D"]  != None :
+                next_room = self.current_room.exits["D"]
+            else :
+                print("Tou can't go in that direction.")
+                return False
         else :
-            print("You can't go in that direction.")
+            print("YThis direction doesn't exist.")
             return False
 
         # If the next room is None, print an error message and return False.
