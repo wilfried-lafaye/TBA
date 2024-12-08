@@ -30,33 +30,33 @@ class Game:
         
         # Setup rooms
 
-        HospitalRoom = Room("Bedroom", "")
-        self.rooms.append(HospitalRoom)
+        Bedroom = Room("Bedroom", "your bedroom.")
+        self.rooms.append(Bedroom)
         room1 = Room("room1", "")
         self.rooms.append(room1)
         room2 = Room("room2", "")
         self.rooms.append(room2)
-        room3 = Room("room3", "")
-        self.rooms.append(room3)
-        Hall = Room("Hall", "")
+        office = Room("room3", "")
+        self.rooms.append(office)
+        Hall = Room("Hall", "the upstairs hallway.")
         self.rooms.append(Hall)
-        ElevatorUP = Room("ElevatorUP", "")
+        ElevatorUP = Room("ElevatorUP", "the elevator on the first floor.")
         self.rooms.append(ElevatorUP)
-        ElevatorDOWN = Room("ElevatorDOWN", "")
+        ElevatorDOWN = Room("ElevatorDOWN", "the elevator on the ground floor.")
         self.rooms.append(ElevatorDOWN)
-        Hall2 = Room("Hall2", "")
+        Hall2 = Room("Hall2", "the groundfloor hallway.")
         self.rooms.append(Hall2)
-        Closet = Room("Closet", "")
+        Closet = Room("Closet", "a closet.")
         self.rooms.append(Closet)
     
 
         # Create exits for rooms
 
-        HospitalRoom.exits = {"N" : room1, "E" : Hall, "S" : None, "O" : None, "U" : None, "D" : None}
-        room1.exits = {"N" : None, "E" : room2, "S" : HospitalRoom, "O" : None, "U" : None, "D" : None}
-        room2.exits = {"N" : None, "E" : room3, "S" : None, "O" : room1, "U" : None, "D" : None}
-        room3.exits = {"N" : None, "E" : None, "S" : None, "O" : room2, "U" : None, "D" : None}
-        Hall.exits = {"N" : None, "E" : ElevatorUP, "S" : None, "O" : ElevatorUP, "U" : None, "D" : None}
+        Bedroom.exits = {"N" : room1, "E" : Hall, "S" : None, "O" : None, "U" : None, "D" : None}
+        room1.exits = {"N" : None, "E" : room2, "S" : Bedroom, "O" : None, "U" : None, "D" : None}
+        room2.exits = {"N" : None, "E" : office, "S" : None, "O" : room1, "U" : None, "D" : None}
+        office.exits = {"N" : None, "E" : None, "S" : None, "O" : room2, "U" : None, "D" : None}
+        Hall.exits = {"N" : None, "E" : ElevatorUP, "S" : None, "O" : Bedroom, "U" : None, "D" : None}
         ElevatorUP.exits = {"N" : None, "E" : None, "S" : None, "O" : Hall, "U" : None, "D" : ElevatorDOWN}
         ElevatorDOWN.exits = {"N" : None, "E" : None, "S" : None, "O" : Hall2, "U" : ElevatorUP, "D" : None}
         Hall2.exits = {"N" : None, "E" : ElevatorDOWN, "S" : Closet, "O" : None, "U" : None, "D" : None}
@@ -65,7 +65,7 @@ class Game:
         # Setup player and starting room
 
         self.player = Player("Bob")
-        self.player.current_room = HospitalRoom
+        self.player.current_room = Bedroom
 
     # Play the game
     def play(self):
@@ -88,11 +88,11 @@ class Game:
             return False
 
         # If the command is not recognized, print an error message
-        if command_word not in self.commands.keys():
+        if command_word.lower() not in self.commands.keys():
             print(f"\nCommand '{command_word}' does not exits. Write 'help' to see all the commands\n")
         # If the command is recognized, execute it
         else:
-            command = self.commands[command_word]
+            command = self.commands[command_word.lower()]
             command.action(self, list_of_words, command.number_of_parameters)
 
     # Print the welcome message

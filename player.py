@@ -24,18 +24,31 @@ class Player():
     def __init__(self, name):
         self.name = name
         self.current_room = None
+        self.history = []
+
+    def gete(self):
+        return self.history
+
+
+    def get_history(self):
+        print("You've already been in these rooms :\n")
+        for description in self.history:
+            print(f"- {description}")
+        return ""
+
+
     
     # Define the move method.
     def move(self, direction):
         # Get the next room from the exits dictionary of the current room.
-
         if direction.lower() not in {"n", "nord", "north", "s", "sud", "south", "e", "est", "east", "o", "ouest", "west", "u", "up", "d", "down"}:
+            print("This direction doesn't exist.")
             return False
         elif direction.lower() in {"n", "nord", "north"}:
             if self.current_room.get_exits()["N"]  != None :
                 next_room = self.current_room.exits["N"]
             else :
-                print("TYou can't go in that direction.")
+                print("You can't go in that direction.")
                 return False
         elif direction.lower() in {"s", "sud", "south"}:
             if self.current_room.get_exits()["S"]  != None :
@@ -65,17 +78,25 @@ class Player():
             if self.current_room.get_exits()["D"]  != None :
                 next_room = self.current_room.exits["D"]
             else :
-                print("Tou can't go in that direction.")
+                print("You can't go in that direction.")
                 return False
         else :
-            print("YThis direction doesn't exist.")
+            print("This direction doesn't exist.")
             return False
 
-        # If the next room is None, print an error message and return False.
+    
         
-        # Set the current room to the next room.
+        # Set the current room to the next room and save this room on the history.
+        
         self.current_room = next_room
+        if self.current_room.get_description_history() not in self.history :
+            self.history.append(self.current_room.get_description_history())
         print(self.current_room.get_long_description())
+        print(self.get_history())
         return True
+    
+    
+        
+
 
     

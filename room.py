@@ -43,7 +43,7 @@ class Room:
     
     # Return a string describing the room's exits.
     def get_exit_string(self):
-        exit_string = "Sorties: " 
+        exit_string = "Exits: " 
         for exit in self.exits.keys():
             if self.exits.get(exit) is not None:
                 exit_string += exit + ", "
@@ -52,4 +52,7 @@ class Room:
 
     # Return a long description of this room including exits.
     def get_long_description(self):
-        return f"\nVous êtes dans {self.description}\n\n{self.get_exit_string()}\n"
+        return f"\nYou're in {self.description}\n\n{self.get_exit_string()}.\n"
+    
+    def get_description_history(self):
+        return self.description
