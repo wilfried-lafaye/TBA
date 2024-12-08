@@ -27,6 +27,11 @@ class Game:
         self.commands["quit"] = quit
         go = Command("go", " <direction> : se déplacer dans une direction cardinale (N, E, S, O)", Actions.go, 1)
         self.commands["go"] = go
+        history = Command("history", ": show visited rooms", Actions.history, 0)
+        self.commands["history"] = history
+        back = Command("back", ": go back in the last room", Actions.back, 0)
+        self.commands["back"] = back
+
         
         # Setup rooms
 
@@ -99,8 +104,9 @@ class Game:
     def print_welcome(self):
         print(f"\nBienvenue {self.player.name} dans ce jeu d'aventure !")
         print("Entrez 'help' si vous avez besoin d'aide.")
-        #
+    
         print(self.player.current_room.get_long_description())
+        
     
 
 def main():

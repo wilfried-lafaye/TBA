@@ -26,17 +26,14 @@ class Player():
         self.current_room = None
         self.history = []
 
-    def gete(self):
-        return self.history
-
-
     def get_history(self):
         print("You've already been in these rooms :\n")
-        for description in self.history:
-            print(f"- {description}")
+        for room in self.history:
+            print(f"- {room.get_description_history()}")
         return ""
-
-
+    
+    def get_history2(self):
+        return self.history
     
     # Define the move method.
     def move(self, direction):
@@ -90,7 +87,7 @@ class Player():
         
         self.current_room = next_room
         if self.current_room.get_description_history() not in self.history :
-            self.history.append(self.current_room.get_description_history())
+            self.history.append(self.current_room)
         print(self.current_room.get_long_description())
         print(self.get_history())
         return True

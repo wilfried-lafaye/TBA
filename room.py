@@ -56,3 +56,6 @@ class Room:
     
     def get_description_history(self):
         return self.description
+    def get_name(self):
+        return self.name
+    
