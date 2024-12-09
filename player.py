@@ -81,13 +81,12 @@ class Player():
             print("This direction doesn't exist.")
             return False
 
-    
+        self.history.append(self.current_room)
         
         # Set the current room to the next room and save this room on the history.
         
         self.current_room = next_room
-        if self.current_room.get_description_history() not in self.history :
-            self.history.append(self.current_room)
+            
         print(self.current_room.get_long_description())
         print(self.get_history())
         return True

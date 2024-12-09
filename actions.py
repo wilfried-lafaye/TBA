@@ -158,11 +158,14 @@ class Actions:
             return False
         
         player = game.player
+
+        player.get_history2().pop()
         if len(player.get_history2()) == 0 :
             print("\nYou can't go back anymore.\n")
             return False
+               
         
-        player.get_history2().pop()
+        
         print(player.get_history2()[-1].get_long_description())
         print(player.get_history())
         player.current_room = player.get_history2()[-1]

@@ -37,11 +37,11 @@ class Game:
 
         Bedroom = Room("Bedroom", "your bedroom.")
         self.rooms.append(Bedroom)
-        room1 = Room("room1", "")
-        self.rooms.append(room1)
-        room2 = Room("room2", "")
-        self.rooms.append(room2)
-        office = Room("room3", "")
+        local = Room("loca1", "the local.")
+        self.rooms.append(local)
+        PatientRoom = Room("PatientRoom", "another patient room")
+        self.rooms.append(PatientRoom)
+        office = Room("office", "")
         self.rooms.append(office)
         Hall = Room("Hall", "the upstairs hallway.")
         self.rooms.append(Hall)
@@ -57,10 +57,10 @@ class Game:
 
         # Create exits for rooms
 
-        Bedroom.exits = {"N" : room1, "E" : Hall, "S" : None, "O" : None, "U" : None, "D" : None}
-        room1.exits = {"N" : None, "E" : room2, "S" : Bedroom, "O" : None, "U" : None, "D" : None}
-        room2.exits = {"N" : None, "E" : office, "S" : None, "O" : room1, "U" : None, "D" : None}
-        office.exits = {"N" : None, "E" : None, "S" : None, "O" : room2, "U" : None, "D" : None}
+        Bedroom.exits = {"N" : local, "E" : Hall, "S" : None, "O" : None, "U" : None, "D" : None}
+        local.exits = {"N" : None, "E" : PatientRoom, "S" : Bedroom, "O" : None, "U" : None, "D" : None}
+        PatientRoom.exits = {"N" : None, "E" : office, "S" : None, "O" : local, "U" : None, "D" : None}
+        office.exits = {"N" : None, "E" : None, "S" : None, "O" : PatientRoom, "U" : None, "D" : None}
         Hall.exits = {"N" : None, "E" : ElevatorUP, "S" : None, "O" : Bedroom, "U" : None, "D" : None}
         ElevatorUP.exits = {"N" : None, "E" : None, "S" : None, "O" : Hall, "U" : None, "D" : ElevatorDOWN}
         ElevatorDOWN.exits = {"N" : None, "E" : None, "S" : None, "O" : Hall2, "U" : ElevatorUP, "D" : None}
