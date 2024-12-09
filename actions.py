@@ -158,11 +158,14 @@ class Actions:
             return False
         
         player = game.player
-
-        player.get_history2().pop()
-        if len(player.get_history2()) == 0 :
+        if not player.get_history2() :
             print("\nYou can't go back anymore.\n")
             return False
+        player.get_history2().pop()
+        if not player.get_history2() :
+            print("\nYou can't go back anymore.\n")
+            return False
+        
                
         
         
