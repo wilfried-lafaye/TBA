@@ -6,6 +6,7 @@ from room import Room
 from player import Player
 from command import Command
 from actions import Actions
+from item import Item
 
 class Game:
 
@@ -21,16 +22,26 @@ class Game:
 
         # Setup commands
 
-        help = Command("help", " : afficher cette aide", Actions.help, 0)
+        help = Command("help", " : afficher cette aide.", Actions.help, 0)
         self.commands["help"] = help
-        quit = Command("quit", " : quitter le jeu", Actions.quit, 0)
+        quit = Command("quit", " : quitter le jeu.", Actions.quit, 0)
         self.commands["quit"] = quit
         go = Command("go", " <direction> : se déplacer dans une direction cardinale (N, E, S, O)", Actions.go, 1)
         self.commands["go"] = go
-        history = Command("history", ": show visited rooms", Actions.history, 0)
+        history = Command("history", " : shows visited rooms.", Actions.history, 0)
         self.commands["history"] = history
-        back = Command("back", ": go back in the last room", Actions.back, 0)
+        back = Command("back", " : go back in the last room.", Actions.back, 0)
         self.commands["back"] = back
+
+        check = Command("check", " : shows the items in your inventory.", Actions.check, 0)
+        self.commands["check"] = check
+
+     
+        look = Command("look", " : shows the items in the room.  ", Actions.look, 0)
+        self.commands["look"] = look
+
+        take = Command("take", " : take the chosen item.  ", Actions.take, 1)
+        self.commands["take"] = take
 
         
         # Setup rooms
@@ -71,7 +82,7 @@ class Game:
 
         self.player = Player("Bob")
         self.player.current_room = Bedroom
-
+        self.player.current_room.inventory.add(Item("sword", "une épée au fil tranchant comme un rasoir", 2))
     # Play the game
     def play(self):
         self.setup()
@@ -102,9 +113,6 @@ class Game:
 
     # Print the welcome message
     def print_welcome(self):
-        print(f"\nBienvenue {self.player.name} dans ce jeu d'aventure !")
-        print("Entrez 'help' si vous avez besoin d'aide.")
-    
         print(self.player.current_room.get_long_description())
         
     

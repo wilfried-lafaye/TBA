@@ -28,6 +28,7 @@ class Room:
         self.name = name
         self.description = description
         self.exits = {}
+        self.inventory = set()
     
     # Define the get_exit method.
     def get_exit(self, direction):
@@ -56,3 +57,4 @@ class Room:
 
     def get_description_history(self):
         return self.description
+    

@@ -25,15 +25,9 @@ class Player():
         self.name = name
         self.current_room = None
         self.history = []
+        self.inventory = {}
 
-    def get_history(self):
-        print("You've already been in these rooms :\n")
-        for room in self.history:
-            print(f"- {room.get_description_history()}")
-        return ""
     
-    def get_history2(self):
-        return self.history
     
     # Define the move method.
     def move(self, direction):
@@ -91,4 +85,21 @@ class Player():
         print(self.get_history())
         return True
     
+    def get_history(self):
+        print("You've already been in these rooms :\n")
+        for room in self.history:
+            print(f"- {room.get_description_history()}")
+        return ""
+    
+    def get_history2(self):
+        return self.history
+
+    def get_inventory(self):
+        if not self.inventory : 
+            return "\nYou're inventory is empty.\n"
+        else :
+            print("These are your items :")
+            for items in self.inventory.values() :
+                print(f"- {items}")
+
     

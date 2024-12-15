@@ -1,4 +1,4 @@
-class Item:
+class Item():
 
     # Constructor
     def __init__(self, name, description, weight):
@@ -8,3 +8,5 @@ class Item:
 
     def __str__(self):
         return  f"{self.name} : {self.description} ({self.weight}kg)"
+    def get_name (self):
+        return self.name

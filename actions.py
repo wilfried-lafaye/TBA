@@ -131,7 +131,7 @@ class Actions:
             return False
         
         # Print the list of available commands.
-        print("\nVoici les commandes disponibles:")
+        print("\nThese are the available commands :")
         for command in game.commands.values():
             print("\t- " + str(command))
         print()
@@ -174,6 +174,51 @@ class Actions:
         player.current_room = player.get_history2()[-1]
 
         return True
+    
+    def check(game, list_of_words, number_of_parameters):
+        l = len(list_of_words)
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+        player = game.player
+        print(player.get_inventory())
+
+    def look(game, list_of_words, number_of_parameters):
+        l = len(list_of_words)
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+        player = game.player
+        if not player.current_room.inventory :
+            print("\nThere is nothing in this room.\n")
+        else :
+            print("These are the items in the room:")
+            for items in player.current_room.inventory:
+                print(items)
+
+    def take(game, list_of_words, number_of_parameters):
+        l = len(list_of_words)
+        # If the number of parameters is incorrect, print an error message and return False.
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG1.format(command_word=command_word))
+            return False
+        item = list_of_words[1]
+        player = game.player
+        print(player.current_room.inventory)
+        for items in player.current_room.inventory:
+         if item == items.get_name():
+            player.current_room.inventory.discard(items)
+            player.inventory[items.get_name()] = item
+
+
+
+
+
+
+
 
         
         
