@@ -181,6 +181,9 @@ class Actions:
             command_word = list_of_words[0]
             print(MSG0.format(command_word=command_word))
             return False
+        if not game.player.inventory: 
+            print("There is nothing oin your inventory.") 
+            return False 
         player = game.player
         #print(player.get_inventory())
         return player.get_inventory()
@@ -242,5 +245,7 @@ class Actions:
             if item == items:
                 del player.inventory[items]
                 player.current_room.inventory.add(list_items_player[items])
+                print(f"{item} had been droped")
+                return False
         print("You don't have this item in your inventory.")
         return False
