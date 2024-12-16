@@ -182,7 +182,8 @@ class Actions:
             print(MSG0.format(command_word=command_word))
             return False
         player = game.player
-        print(player.get_inventory())
+        #print(player.get_inventory())
+        return player.get_inventory()
 
     def look(game, list_of_words, number_of_parameters):
         l = len(list_of_words)
@@ -205,23 +206,41 @@ class Actions:
             command_word = list_of_words[0]
             print(MSG1.format(command_word=command_word))
             return False
-        item = list_of_words[1]
         player = game.player
-        print(player.current_room.inventory)
-        for items in player.current_room.inventory:
-         if item == items.get_name():
-            player.current_room.inventory.discard(items)
-            player.inventory[items.get_name()] = item
+        list_items_current_room =  player.current_room.inventory.copy()
+        item = list_of_words[1]
+        inventory_weight = 0
+        print()
+        for items in player.inventory.values():
+            inventory_weight+= items.get_weight()
+        for items in list_items_current_room:
+            if item == items.get_name():
 
+            
+                if inventory_weight >= player.max_weight:
+                    print("This item is too heavy. Your inventory is full")
+                    return False
+                
+                player.current_room.inventory.discard(items)
+                player.inventory[item] = items
+                print(f"{item} had been add to your inventory.")
+                return True
+        return "This item doesn't exist."
+    
+    def drop(game, list_of_words, number_of_parameters):
+        l = len(list_of_words)
+        # If the number of parameters is incorrect, print an error message and return False.
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG1.format(command_word=command_word))
+            return False
+        player = game.player
+        item = list_of_words[1]
+        list_items_player =  player.inventory.copy()
 
-
-
-
-
-
-
-        
-        
-        
-
-        
+        for items in list_items_player:
+            if item == items:
+                del player.inventory[items]
+                player.current_room.inventory.add(list_items_player[items])
+        print("You don't have this item in your inventory.")
+        return False

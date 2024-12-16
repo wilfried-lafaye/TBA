@@ -37,11 +37,14 @@ class Game:
         self.commands["check"] = check
 
      
-        look = Command("look", " : shows the items in the room.  ", Actions.look, 0)
+        look = Command("look", " : shows the items in the room.", Actions.look, 0)
         self.commands["look"] = look
 
-        take = Command("take", " : take the chosen item.  ", Actions.take, 1)
+        take = Command("take", " : take the chosen item.", Actions.take, 1)
         self.commands["take"] = take
+
+        drop = Command("drop", " : drop the chosen item from your inventory.", Actions.drop, 1)
+        self.commands["drop"] = drop
 
         
         # Setup rooms
@@ -83,6 +86,8 @@ class Game:
         self.player = Player("Bob")
         self.player.current_room = Bedroom
         self.player.current_room.inventory.add(Item("sword", "une épée au fil tranchant comme un rasoir", 2))
+        local.inventory.add(Item("casque","casque de protection contre les monstres",2))
+        Hall.inventory.add(Item("bouclier","un bouclier",2))
     # Play the game
     def play(self):
         self.setup()
