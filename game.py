@@ -7,6 +7,7 @@ from player import Player
 from command import Command
 from actions import Actions
 from item import Item
+from character import Character
 
 class Game:
 
@@ -45,6 +46,9 @@ class Game:
 
         drop = Command("drop", " : drop the chosen item from your inventory.", Actions.drop, 1)
         self.commands["drop"] = drop
+
+        talk = Command("talk", " : talk to a PNJ in the current room.", Actions.talk,1)
+        self.commands["talk"] = talk
 
         
         # Setup rooms
@@ -86,8 +90,15 @@ class Game:
         self.player = Player("Bob")
         self.player.current_room = Bedroom
         self.player.current_room.inventory.add(Item("sword", "une épée au fil tranchant comme un rasoir", 2))
+
+        # Setup items
         local.inventory.add(Item("casque","casque de protection contre les monstres",2))
         Hall.inventory.add(Item("bouclier","un bouclier",2))
+
+        # Setup PNJs
+        
+        local.characters.update({"bob" : Character("Bob", "un bob", local, ["a","b","c"] )})
+
     # Play the game
     def play(self):
         self.setup()

@@ -195,12 +195,21 @@ class Actions:
             print(MSG0.format(command_word=command_word))
             return False
         player = game.player
-        if not player.current_room.inventory :
+        if not player.current_room.get_elements_in_room() :
+            print("\nThere is nothing in this room.\n")
+        else :
+            for elements in player.current_room.get_elements_in_room():
+                print(elements)
+
+
+
+
+        """if not player.current_room.inventory :
             print("\nThere is nothing in this room.\n")
         else :
             print("These are the items in the room:")
             for items in player.current_room.inventory:
-                print(items)
+                print(items)"""
 
     def take(game, list_of_words, number_of_parameters):
         l = len(list_of_words)
@@ -249,3 +258,18 @@ class Actions:
                 return False
         print("You don't have this item in your inventory.")
         return False
+    
+    def talk(game, list_of_words, number_of_parameters):
+        l = len(list_of_words)
+        # If the number of parameters is incorrect, print an error message and return False.
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG1.format(command_word=command_word))
+            return False
+        
+        if list_of_words[1].lower() in game.player.current_room.characters:
+            print(game.player.current_room.characters[list_of_words[1].lower()].get_msg())
+    
+    
+        
+
