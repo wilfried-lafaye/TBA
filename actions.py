@@ -269,6 +269,8 @@ class Actions:
         
         if list_of_words[1].lower() in game.player.current_room.characters:
             print(game.player.current_room.characters[list_of_words[1].lower()].get_msg())
+        else:
+            print(f"{list_of_words[1]} is not present in this room")    
     
     
         

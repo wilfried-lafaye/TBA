@@ -97,7 +97,8 @@ class Game:
 
         # Setup PNJs
         
-        local.characters.update({"bob" : Character("Bob", "un bob", local, ["a","b","c"] )})
+        local.characters.update({"micheal" : Character("Micheal", "a cleaning agent", local, ["go away let me do my work","b","c"] )})
+        Hall.characters.update({"scientist" : Character("Scientist", "an old man with white hair and an arched back ", Hall, ["a","f","u"] )})
 
     # Play the game
     def play(self):
