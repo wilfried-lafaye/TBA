@@ -22,22 +22,22 @@ class Game:
 
         # Setup commands
 
-        help = Command("help", " : afficher cette aide.", Actions.help, 0)
+        help = Command("help", " : show this help.", Actions.help, 0)
         self.commands["help"] = help
-        quit = Command("quit", " : quitter le jeu.", Actions.quit, 0)
+        quit = Command("quit", " : exit the game.", Actions.quit, 0)
         self.commands["quit"] = quit
-        go = Command("go", " <direction> : se déplacer dans une direction cardinale (N, E, S, O)", Actions.go, 1)
+        go = Command("go", " <direction> : move in a cardinal direction (N, E, S, W).", Actions.go, 1)
         self.commands["go"] = go
         history = Command("history", " : shows visited rooms.", Actions.history, 0)
         self.commands["history"] = history
         back = Command("back", " : go back in the last room.", Actions.back, 0)
         self.commands["back"] = back
 
-        check = Command("check", " : shows the items in your inventory.", Actions.check, 0)
+        check = Command("check", " : show the items in your inventory.", Actions.check, 0)
         self.commands["check"] = check
 
      
-        look = Command("look", " : shows the items in the room.", Actions.look, 0)
+        look = Command("look", " : show the items in the room.", Actions.look, 0)
         self.commands["look"] = look
 
         take = Command("take", " : take the chosen item.", Actions.take, 1)
