@@ -105,7 +105,6 @@ class Game:
         self.print_welcome()
         # Loop until the game is finished
         while not self.finished:
-            # Get the command from the player
             self.process_command(input("> "))
         return None
 

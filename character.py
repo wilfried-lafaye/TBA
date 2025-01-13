@@ -12,9 +12,10 @@ class Character():
         return  f"{self.name} : {self.description}"
     
     def move(self, rooms):
-        if random.choice([0,1]):
+        if random.choice([0,1])  :
             self.current_room = random.choice(rooms)
             return True
+
         return False
     
     def get_msg(self):

@@ -56,6 +56,7 @@ class Actions:
         direction = list_of_words[1]
         # Move the player in the direction specified by the parameter.
         player.move(direction)
+        
         return True
 
     def quit(game, list_of_words, number_of_parameters):
@@ -269,6 +270,10 @@ class Actions:
         
         if list_of_words[1].lower() in game.player.current_room.characters:
             print(game.player.current_room.characters[list_of_words[1].lower()].get_msg())
+        else : 
+            print(f"{list_of_words[1]} does not exists" )
+
+
     
     
         
