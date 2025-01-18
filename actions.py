@@ -15,7 +15,7 @@
 MSG0 = "\nLa commande '{command_word}' ne prend pas de paramètre.\n"
 # The MSG1 variable is used when the command takes 1 parameter.
 MSG1 = "\nLa commande '{command_word}' prend 1 seul paramètre.\n"
-
+import random
 class Actions:
     def go(game, list_of_words, number_of_parameters):
         """
@@ -56,7 +56,35 @@ class Actions:
         direction = list_of_words[1]
         # Move the player in the direction specified by the parameter.
         player.move(direction)
+
+        for character in (c for c in game.characters if c.name != "Daisy" and c.name != "Micheal"):
+            rooms_possible = [
+                room for room in character.current_room.exits.values()
+                if room is not None and (character.name != "Scientist" or room.name != "local")
+            ]
         
+            
+            if rooms_possible and random.choice([True, False]):
+                next_room = random.choice(rooms_possible)
+                if (next_room == player.current_room or character.current_room == player.current_room) and character.name == "Scientist":
+                        c=0
+                        for item in player.inventory.values():
+                            print(item)
+                            if item.name == 'coat':
+                                c=1
+                                
+                        if c!=1 :
+                            print("You have been trapped by the scientist !")
+                            game.finished = True
+                            return True
+                    
+
+                del character.current_room.characters[character.name.lower()]
+                character.move(next_room)
+                next_room.characters[character.name.lower()] = character
+                print(f"{character.name} moved to {next_room.name}.")
+
+            
         return True
 
     def quit(game, list_of_words, number_of_parameters):
@@ -159,20 +187,20 @@ class Actions:
             return False
         
         player = game.player
-        if not player.get_history2() :
+        if not player.history :
             print("\nYou can't go back anymore.\n")
             return False
-        player.get_history2().pop()
-        if not player.get_history2() :
+        player.history.pop()
+        if not player.history :
             print("\nYou can't go back anymore.\n")
             return False
         
                
         
         
-        print(player.get_history2()[-1].get_long_description())
+        print(player.history[-1].get_long_description())
         print(player.get_history())
-        player.current_room = player.get_history2()[-1]
+        player.current_room = player.history[-1]
 
         return True
     
@@ -223,13 +251,10 @@ class Actions:
         list_items_current_room =  player.current_room.inventory.copy()
         item = list_of_words[1]
         inventory_weight = 0
-        print()
         for items in player.inventory.values():
-            inventory_weight+= items.get_weight()
+            inventory_weight+= items.weight
         for items in list_items_current_room:
-            if item == items.get_name():
-
-            
+            if item == items.name:
                 if inventory_weight >= player.max_weight:
                     print("This item is too heavy. Your inventory is full")
                     return False
@@ -270,11 +295,9 @@ class Actions:
         
         if list_of_words[1].lower() in game.player.current_room.characters:
             print(game.player.current_room.characters[list_of_words[1].lower()].get_msg())
-        else : 
-            print(f"{list_of_words[1]} does not exists" )
+        else:
+            print(f"{list_of_words[1]} is not present in this room")    
 
-
-    
     
         
 

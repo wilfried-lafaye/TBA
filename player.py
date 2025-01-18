@@ -1,5 +1,5 @@
 # Define the Player class.
-class Player():
+class Player(): 
     """
     This class represents a player. A player is composed of a name and a current room.
 
@@ -33,67 +33,44 @@ class Player():
     # Define the move method.
     def move(self, direction):
         # Get the next room from the exits dictionary of the current room.
-        if direction.lower() not in {"n", "nord", "north", "s", "sud", "south", "e", "est", "east", "o", "ouest", "west", "u", "up", "d", "down"}:
-            print("This direction doesn't exist.")
-            return False
-        elif direction.lower() in {"n", "nord", "north"}:
-            if self.current_room.get_exits()["N"]  != None :
-                next_room = self.current_room.exits["N"]
-            else :
-                print("You can't go in that direction.")
-                return False
-        elif direction.lower() in {"s", "sud", "south"}:
-            if self.current_room.get_exits()["S"]  != None :
-                next_room = self.current_room.exits["S"]
-            else :
-                print("You can't go in that direction.")
-                return False
-        elif direction.lower() in {"e", "est", "east"}:
-            if self.current_room.get_exits()["E"]  != None :
-                next_room = self.current_room.exits["E"]
-            else :
-                print("You can't go in that direction.")
-                return False
-        elif direction.lower() in {"o", "ouest", "west"}:
-            if self.current_room.get_exits()["O"]  != None :
-                next_room = self.current_room.exits["O"]
-            else :
-                print("You can't go in that direction.")
-                return False
-        elif direction.lower() in {"u", "up"}:
-            if self.current_room.get_exits()["U"]  != None :
-                next_room = self.current_room.exits["U"]
-            else :
-                print("You can't go in that direction.")
-                return False
-        elif direction.lower() in {"d", "down"}:
-            if self.current_room.get_exits()["D"]  != None :
-                next_room = self.current_room.exits["D"]
-            else :
-                print("You can't go in that direction.")
-                return False
-        else :
-            print("This direction doesn't exist.")
-            return False
+        if direction.lower() in {"n", "north", "s", "south", "e", "east","w" , "west", "u", "up", "d", "down"} :
 
-        self.history.append(self.current_room)
-        
+            if self.current_room.exits[direction[0].upper()]  != None :
+                if self.current_room.exits[direction[0].upper()].name == "ElevatorDOWN" and "card" not in self.inventory :
+                    print("You can't use the elevator without the card !!!")
+                    game.finished = True
+                    return True
+                
+                if self.current_room.exits[direction[0].upper()].name == "Exit" and "number" not in self.inventory :
+                    print("Micheal didn't let you escape !!!")
+                    game.finished = True
+                    return True
+                
+                if self.current_room.exits[direction[0].upper()].name == "Exit" and "number" in self.inventory :
+                    print("You have escape the laboratory ! Congratulations !")
+                    game.finished = True
+                    return True
+                
+                
+
+                next_room = self.current_room.exits[direction[0].upper()]
+                self.history.append(self.current_room)
+                self.current_room = next_room
+                print(self.current_room.get_long_description())
+                print(self.get_history())
+                return True
+            else :
+                print("You can't go in that direction.")
+                return False
         # Set the current room to the next room and save this room on the history.
-        
-        self.current_room = next_room
-            
-        print(self.current_room.get_long_description())
-        print(self.get_history())
-        return True
-    
+        print("This direction doesn't exist.") 
+        return False
+
     def get_history(self):
         print("You've already been in these rooms :\n")
         for room in self.history:
-            print(f"- {room.get_description_history()}")
+            print(f"- {room.description}")
         return ""
-    
-    def get_history2(self):
-        return self.history
 
     def get_inventory(self):
         if not self.inventory : 

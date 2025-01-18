@@ -32,15 +32,11 @@ class Room:
         self.characters = dict() 
     # Define the get_exit method.
     def get_exit(self, direction):
-
         # Return the room in the given direction if it exists.
         if direction in self.exits.keys():
             return self.exits[direction]
         else:
             return None
-
-    def get_exits(self):
-        return self.exits
     
     # Return a string describing the room's exits.
     def get_exit_string(self):
@@ -54,9 +50,6 @@ class Room:
     # Return a long description of this room including exits.
     def get_long_description(self):
         return f"\nYou're in {self.description}\n\n{self.get_exit_string()}\n"
-
-    def get_description_history(self):
-        return self.description
     
     def get_elements_in_room(self):
         elements = self.inventory.copy()

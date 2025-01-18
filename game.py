@@ -9,6 +9,7 @@ from actions import Actions
 from item import Item
 from character import Character
 
+
 class Game:
 
     # Constructor
@@ -17,6 +18,7 @@ class Game:
         self.rooms = []
         self.commands = {}
         self.player = None
+        self.characters =[]
     
     # Setup the game
     def setup(self):
@@ -55,7 +57,7 @@ class Game:
 
         Bedroom = Room("Bedroom", "your bedroom.")
         self.rooms.append(Bedroom)
-        local = Room("loca1", "the local.")
+        local = Room("local", "the local.")
         self.rooms.append(local)
         PatientRoom = Room("PatientRoom", "another patient room")
         self.rooms.append(PatientRoom)
@@ -71,33 +73,53 @@ class Game:
         self.rooms.append(Hall2)
         Closet = Room("Closet", "a closet.")
         self.rooms.append(Closet)
+        Exit = Room("Exit", "the exit.")
+        self.rooms.append(Exit)
     
 
         # Create exits for rooms
 
-        Bedroom.exits = {"N" : local, "E" : Hall, "S" : None, "O" : None, "U" : None, "D" : None}
-        local.exits = {"N" : None, "E" : PatientRoom, "S" : Bedroom, "O" : None, "U" : None, "D" : None}
-        PatientRoom.exits = {"N" : None, "E" : office, "S" : None, "O" : local, "U" : None, "D" : None}
-        office.exits = {"N" : None, "E" : None, "S" : None, "O" : PatientRoom, "U" : None, "D" : None}
-        Hall.exits = {"N" : None, "E" : ElevatorUP, "S" : None, "O" : Bedroom, "U" : None, "D" : None}
-        ElevatorUP.exits = {"N" : None, "E" : None, "S" : None, "O" : Hall, "U" : None, "D" : ElevatorDOWN}
-        ElevatorDOWN.exits = {"N" : None, "E" : None, "S" : None, "O" : Hall2, "U" : ElevatorUP, "D" : None}
-        Hall2.exits = {"N" : None, "E" : ElevatorDOWN, "S" : Closet, "O" : None, "U" : None, "D" : None}
-        Closet.exits = {"N" : Hall2, "E" : None, "S" : None, "O" : None, "U" : None, "D" : None}
+        Bedroom.exits = {"N" : local, "E" : Hall, "S" : None, "W" : None, "U" : None, "D" : None}
+        local.exits = {"N" : None, "E" : PatientRoom, "S" : Bedroom, "W" : None, "U" : None, "D" : None}
+        PatientRoom.exits = {"N" : None, "E" : office, "S" : None, "W" : local, "U" : None, "D" : None}
+        office.exits = {"N" : None, "E" : None, "S" : None, "W" : PatientRoom, "U" : None, "D" : None}
+        Hall.exits = {"N" : None, "E" : ElevatorUP, "S" : None, "W" : Bedroom, "U" : None, "D" : None}
+        ElevatorUP.exits = {"N" : None, "E" : None, "S" : None, "W" : Hall, "U" : None, "D" : ElevatorDOWN}
+        ElevatorDOWN.exits = {"N" : None, "E" : None, "S" : None, "W" : Hall2, "U" : ElevatorUP, "D" : None}
+        Hall2.exits = {"N" : None, "E" : ElevatorDOWN, "S" : Closet, "W" : Exit, "U" : None, "D" : None}
+        Closet.exits = {"N" : Hall2, "E" : None, "S" : None, "W" : None, "U" : None, "D" : None}
+        Exit.exits = {"N" : None, "E" : None, "S" : None, "W" : None, "U" : None, "D" : None}
 
         # Setup player and starting room
 
         self.player = Player("Bob")
         self.player.current_room = Bedroom
+
         self.player.current_room.inventory.add(Item("sword", "une épée au fil tranchant comme un rasoir", 2))
 
         # Setup items
-        local.inventory.add(Item("casque","casque de protection contre les monstres",2))
-        Hall.inventory.add(Item("bouclier","un bouclier",2))
+        local.inventory.add(Item("coat","a coat that allow you to hide from the scientist",2))
+        office.inventory.add(Item("card","this card allows you to use the elevator",1))
+        office.inventory.add(Item("number", "Daisy's phone number",1))
+        PatientRoom.inventory.add(Item("key", "a mysterious key",2))
+    
 
         # Setup PNJs
         
-        local.characters.update({"bob" : Character("Bob", "un bob", local, ["a","b","c"] )})
+        Michael = Character("Micheal", "a cleaning agent, you can corrupt him by giving him Daisy's number.", Hall2, ["go away let me do my work","oh wait I recognize you",
+                                                                                                                      "I will let you escape if you give me Daisy's number"] )
+        Hall2.characters.update({"micheal" : Michael})
+        self.characters.append(Michael)
+        
+        Scientist = Character("Scientist", "an old man with white hair and an arched back ", office, ["a","f","u"] )
+        office.characters.update({"scientist" : Scientist })
+        self.characters.append(Scientist)
+
+        Daisy = Character("Daisy","a 35-year-old laboratory nurse, is a methodical and passionate woman.", Bedroom, ["a","fg","f"])
+        Bedroom.characters.update({"daisy" : Daisy})
+        self.characters.append(Daisy)
+
+        
 
     # Play the game
     def play(self):
