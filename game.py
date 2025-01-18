@@ -119,7 +119,7 @@ class Game:
         Bedroom.characters.update({"daisy" : Daisy})
         self.characters.append(Daisy)
 
-        
+    
 
     # Play the game
     def play(self):
@@ -151,6 +151,7 @@ class Game:
     # Print the welcome message
     def print_welcome(self):
         print(self.player.current_room.get_long_description())
+        print("\nYour story takes place in a gloomy, empty hospital hospital. You wake up in a hospital room with no memory of how they got there and what they did to you. You're just thinking one thing, ESCAPE!\n")
         
     
 
