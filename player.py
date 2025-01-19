@@ -72,6 +72,7 @@ class Player():
         print("You've already been in these rooms :\n")
         for room in self.history:
             print(f"- {room.description}")
+        return ""
 
     def get_inventory(self):
         """

@@ -107,7 +107,8 @@ class Actions():
             print(MSG0.format(command_word=command_word))
             return False
         # Set the finished attribute of the game object to True.
-        msg = "\nThanks for playing !\n"
+        player = game.player
+        msg = f"\nThank you {player.name} for playing 'Silent Steps'. Goodbye.\n"
         print(msg)
         game.finished = True
         return True
@@ -202,9 +203,9 @@ class Actions():
             command_word = list_of_words[0]
             print(MSG0.format(command_word=command_word))
             return False
-        if not game.player.inventory:
-            print("There is nothing in your inventory.")
-            return False
+        if not game.player.inventory: 
+            print("There is nothing in your inventory.") 
+            return False 
         player = game.player
         #print(player.get_inventory())
         return player.get_inventory()
